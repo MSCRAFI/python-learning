@@ -1,4 +1,4 @@
-# python program to count the occurrences of each word in a given sentence.
+# python program to count words in a given sentence.
 
 text = input("Enter a sentence: ")
 words = text.split()
