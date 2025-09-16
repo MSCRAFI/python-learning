@@ -1,3 +1,5 @@
+# Read and display contents of a CSV file using csv.DictReader
+
 import csv
 
 with open("students_marks.csv", "r") as f:
