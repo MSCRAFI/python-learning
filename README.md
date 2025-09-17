@@ -10,8 +10,9 @@ Each week focuses on specific topics, with practice scripts and exercises to sol
 - **Week 1 – Python Foundations** ✅  
   [View Week 1](week-1/README.md)
 
-- **Week 2 – Python Foundations (Intermediate)** ⏳<!-- ✅ -->
-
+- **Week 2 – Python Foundations (Intermediate)** ⏳<!-- ✅ -->  
+  [View Week 2](week-2/README.md)
+  
 - Week 2 – (upcoming)  
 - Week 3 – (upcoming)  
 - Week 4 – (upcoming)  
