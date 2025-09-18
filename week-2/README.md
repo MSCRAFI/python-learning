@@ -30,15 +30,15 @@ The goal of this week was to move from writing simple scripts to **organizing co
 ### Day 13 – Mini Projects (Combine Skills)
 - Combining functions, OOP, file handling, JSON  
 - **Projects:** `csv_analyzer.py`
-    ![Screenshot of csv_analyzer.py](<Screenshot 2025-09-18 at 8.43.37 AM.jpeg>)
+    ![Screenshot of csv_analyzer.py](<screenshots/Screenshot 2025-09-18 at 8.43.37 AM.jpeg>)
 
     , `json_address_book.py`
     
-    ![Screenshot of json_address_book.py](<Screenshot 2025-09-18 at 9.07.02 AM.png>)
+    ![Screenshot of json_address_book.py](<screenshots/Screenshot 2025-09-18 at 9.07.02 AM.png>)
     
     , `simple_calculator.py`
 
-    ![Screenshot of simple_calculator.py](<Screenshot 2025-09-18 at 9.13.06 AM.png>)
+    ![Screenshot of simple_calculator.py](<screenshots/Screenshot 2025-09-18 at 9.13.06 AM.png>)
 
 <!-- ### Day 14 – Review + HackerRank
 - Revision & practice with Python problems on loops, sets, dicts, functions   -->
