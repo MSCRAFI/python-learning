@@ -27,11 +27,14 @@ The goal of this week was to move from writing simple scripts to **organizing co
 - Writing & reading JSON files  
 - **Scripts:** `save_contacts.py`, `load_contacts.py`
 
-<!-- ### Day 13 – Mini Projects (Combine Skills)
+### Day 13 – Mini Projects (Combine Skills)
 - Combining functions, OOP, file handling, JSON  
-- **Projects:** `csv_analyzer.py`, `json_address_book.py`, `simple_calculator.py`
+- **Projects:** `csv_analyzer.py`
+    ![Screenshot of csv_analyzer.py](<Screenshot 2025-09-18 at 8.43.37 AM.jpeg>)
 
-### Day 14 – Review + HackerRank
+    , `json_address_book.py`, `simple_calculator.py`
+
+<!-- ### Day 14 – Review + HackerRank
 - Revision & practice with Python problems on loops, sets, dicts, functions   -->
 
 ---
