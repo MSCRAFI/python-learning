@@ -38,6 +38,8 @@ The goal of this week was to move from writing simple scripts to **organizing co
     
     , `simple_calculator.py`
 
+    ![Screenshot of simple_calculator.py](<Screenshot 2025-09-18 at 9.13.06 AM.png>)
+
 <!-- ### Day 14 – Review + HackerRank
 - Revision & practice with Python problems on loops, sets, dicts, functions   -->
 
