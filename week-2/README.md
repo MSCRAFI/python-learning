@@ -32,7 +32,11 @@ The goal of this week was to move from writing simple scripts to **organizing co
 - **Projects:** `csv_analyzer.py`
     ![Screenshot of csv_analyzer.py](<Screenshot 2025-09-18 at 8.43.37 AM.jpeg>)
 
-    , `json_address_book.py`, `simple_calculator.py`
+    , `json_address_book.py`
+    
+    ![Screenshot of json_address_book.py](<Screenshot 2025-09-18 at 9.07.02 AM.png>)
+    
+    , `simple_calculator.py`
 
 <!-- ### Day 14 – Review + HackerRank
 - Revision & practice with Python problems on loops, sets, dicts, functions   -->
