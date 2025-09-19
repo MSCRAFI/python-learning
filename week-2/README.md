@@ -40,9 +40,10 @@ The goal of this week was to move from writing simple scripts to **organizing co
 
     ![Screenshot of simple_calculator.py](<screenshots/Screenshot 2025-09-18 at 9.13.06 AM.png>)
 
-<!-- ### Day 14 – Review + HackerRank
-- Revision & practice with Python problems on loops, sets, dicts, functions   -->
-
+### Day 14 – Review + HackerRank
+- Revision & practice with Python problems on loops, sets, dicts, functions  
+- Solve 5 HackerRank Python problems related to all topics covered till now
+- Picking different topics to solve HackerRank problems like: loops, sets, dicts, functions, OOP etc.
 ---
 
 ## ✅ Week 2 Output
