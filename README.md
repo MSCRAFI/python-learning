@@ -13,7 +13,7 @@ Each week focuses on specific topics, with practice scripts and exercises to sol
 - **Week 2 – Python Foundations (Intermediate)** ✅<!-- ⏳ -->  
   [View Week 2](week-2/README.md)
   
-- Week 2 – (upcoming)  
+- **Week 3 – Django Fundamentals** ⏳<!-- ✅ -->
 - Week 3 – (upcoming)  
 - Week 4 – (upcoming)  
 
