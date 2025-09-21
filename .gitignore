@@ -1,2 +1,6 @@
 env/
 week-3/day-15/myportfolio/db.sqlite3
+week-3/day-16/mysite/db.sqlite3
+week-3/day-16/mysite/mysite/__pycache__
+week-3/day-16/mysite/blog/__pycache__
+week-3/day-16/mysite/blog/migrations
