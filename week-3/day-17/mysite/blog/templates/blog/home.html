@@ -1,127 +1,647 @@
-{% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to Django - Professional Web Development</title>
-    <link rel="stylesheet" href="{% static 'blog/style.css' %}">
+    <title>Professional Blog</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+
+        /* Header Styles */
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+        }
+
+        .logo:hover {
+            opacity: 0.8;
+        }
+
+        /* Navigation Styles */
+        .nav {
+            background-color: #34495e;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-item {
+            margin: 0;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 1rem 1.5rem;
+            color: white;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background-color: #2c3e50;
+            color: #3498db;
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Main Layout */
+        .main-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+        }
+
+        /* Blog Posts Styles */
+        .blog-post {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .blog-post:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+        }
+
+        .post-title {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            text-decoration: none;
+        }
+
+        .post-title:hover {
+            color: #3498db;
+        }
+
+        .post-meta {
+            color: #7f8c8d;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .post-meta span {
+            margin-right: 1rem;
+        }
+
+        .post-excerpt {
+            color: #555;
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        .read-more {
+            display: inline-block;
+            background-color: #3498db;
+            color: white;
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        .read-more:hover {
+            background-color: #2980b9;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .sidebar-widget {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .sidebar-widget h3 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 0.5rem;
+        }
+
+        .recent-posts {
+            list-style: none;
+        }
+
+        .recent-posts li {
+            margin-bottom: 0.8rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .recent-posts li:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .recent-posts a {
+            color: #333;
+            text-decoration: none;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .recent-posts a:hover {
+            color: #3498db;
+        }
+
+        .categories {
+            list-style: none;
+        }
+
+        .categories li {
+            margin-bottom: 0.5rem;
+        }
+
+        .categories a {
+            color: #333;
+            text-decoration: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.3rem 0;
+        }
+
+        .categories a:hover {
+            color: #3498db;
+        }
+
+        .category-count {
+            background-color: #ecf0f1;
+            color: #7f8c8d;
+            padding: 0.2rem 0.5rem;
+            border-radius: 10px;
+            font-size: 0.8rem;
+        }
+
+        /* Footer Styles */
+        .footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .footer p {
+            margin-bottom: 1rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem;
+            border-radius: 50%;
+            background-color: #34495e;
+            transition: background-color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background-color: #3498db;
+        }
+
+        /* Search Form */
+        .search-form {
+            display: flex;
+            margin-bottom: 1rem;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px 0 0 4px;
+            outline: none;
+        }
+
+        .search-input:focus {
+            border-color: #3498db;
+        }
+
+        .search-button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .search-button:hover {
+            background-color: #2980b9;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 0 1rem;
+            }
+
+            .nav-container {
+                padding: 0 1rem;
+            }
+
+            .nav-menu {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: #34495e;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .main-container {
+                grid-template-columns: 1fr;
+                padding: 0 1rem;
+                gap: 1.5rem;
+            }
+
+            .blog-post {
+                padding: 1.5rem;
+            }
+
+            .post-title {
+                font-size: 1.5rem;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .blog-post {
+                padding: 1rem;
+            }
+
+            .post-title {
+                font-size: 1.3rem;
+            }
+
+            .sidebar-widget {
+                padding: 1rem;
+            }
+        }
+
+        /* Animation for loading */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .blog-post {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .sidebar-widget {
+            animation: fadeInUp 0.6s ease-out;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Header Section -->
-        <header>
-            <h1>Welcome to Django</h1>
-            <p>Professional Web Development Made Simple</p>
-        </header>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <a href="#" class="logo">TechBlog</a>
+            <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
+        </div>
+    </header>
 
-        <!-- Navigation Menu -->
-        <nav>
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#portfolio">Portfolio</a></li>
-                <li><a href="#blog">Blog</a></li>
-                <li><a href="#contact">Contact</a></li>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <ul class="nav-menu" id="navMenu">
+                <li class="nav-item"><a href="#" class="nav-link active">Home</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Technology</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Programming</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Web Design</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Tutorials</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">About</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Contact</a></li>
             </ul>
-        </nav>
+        </div>
+    </nav>
 
-        <!-- Main Content Section -->
-        <main>
-            <div class="welcome-content">
-                <h2>Build Amazing Web Applications</h2>
-                <p>Django is a high-level Python web framework that encourages rapid development and clean, pragmatic design. Built by experienced developers, it takes care of much of the hassle of web development, so you can focus on writing your app without needing to reinvent the wheel.</p>
-
-                <div class="features">
-                    <div class="feature-card">
-                        <div class="feature-icon">🚀</div>
-                        <h3>Fast Development</h3>
-                        <p>Django's rapid development philosophy helps you build applications faster than traditional frameworks.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">🔒</div>
-                        <h3>Secure by Default</h3>
-                        <p>Built-in security features protect your application from common vulnerabilities automatically.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">📈</div>
-                        <h3>Scalable Architecture</h3>
-                        <p>Handle high traffic loads with Django's scalable and maintainable architecture design.</p>
-                    </div>
+    <!-- Main Content -->
+    <div class="main-container">
+        <!-- Blog Posts -->
+        <main class="blog-posts">
+            <article class="blog-post">
+                <h2><a href="#" class="post-title">Getting Started with Modern Web Development</a></h2>
+                <div class="post-meta">
+                    <span>📅 March 15, 2024</span>
+                    <span>👤 John Doe</span>
+                    <span>🏷️ Web Development</span>
                 </div>
+                <p class="post-excerpt">
+                    Modern web development has evolved significantly over the past few years. From the rise of JavaScript frameworks like React and Vue.js to the emergence of serverless architecture, developers now have more tools than ever to build amazing web applications. In this comprehensive guide, we'll explore the essential technologies and best practices that every modern web developer should know.
+                </p>
+                <a href="#" class="read-more">Read More →</a>
+            </article>
 
-                <div class="cta-section">
-                    <h3>Ready to Start Your Django Journey?</h3>
-                    <p>Join thousands of developers who trust Django for their web applications</p>
-                    <a href="#" class="cta-button">Get Started Today</a>
+            <article class="blog-post">
+                <h2><a href="#" class="post-title">Understanding CSS Grid and Flexbox</a></h2>
+                <div class="post-meta">
+                    <span>📅 March 12, 2024</span>
+                    <span>👤 Jane Smith</span>
+                    <span>🏷️ CSS</span>
                 </div>
-            </div>
+                <p class="post-excerpt">
+                    CSS Grid and Flexbox are two powerful layout systems that have revolutionized how we create responsive web designs. While they might seem similar at first glance, each serves different purposes and excels in different scenarios. This article will help you understand when to use each one and how to combine them effectively for maximum impact.
+                </p>
+                <a href="#" class="read-more">Read More →</a>
+            </article>
+
+            <article class="blog-post">
+                <h2><a href="#" class="post-title">Building Responsive Websites with Bootstrap 5</a></h2>
+                <div class="post-meta">
+                    <span>📅 March 10, 2024</span>
+                    <span>👤 Mike Johnson</span>
+                    <span>🏷️ Bootstrap</span>
+                </div>
+                <p class="post-excerpt">
+                    Bootstrap 5 brings many exciting new features and improvements to the world's most popular CSS framework. With enhanced customization options, improved utility classes, and better performance, it's easier than ever to create beautiful, responsive websites. Let's dive into the key features and see how you can leverage them in your next project.
+                </p>
+                <a href="#" class="read-more">Read More →</a>
+            </article>
+
+            <article class="blog-post">
+                <h2><a href="#" class="post-title">JavaScript ES6+ Features You Should Know</a></h2>
+                <div class="post-meta">
+                    <span>📅 March 8, 2024</span>
+                    <span>👤 Sarah Wilson</span>
+                    <span>🏷️ JavaScript</span>
+                </div>
+                <p class="post-excerpt">
+                    JavaScript ES6 and later versions have introduced numerous features that make coding more efficient and enjoyable. From arrow functions and template literals to async/await and modules, these features help you write cleaner, more maintainable code. This guide covers the most important ES6+ features with practical examples you can use right away.
+                </p>
+                <a href="#" class="read-more">Read More →</a>
+            </article>
         </main>
 
-        <!-- Sidebar Section -->
-        <aside>
-            <div class="sidebar-section">
-                <h3>Quick Links</h3>
-                <ul class="quick-links">
-                    <li><a href="#">Django Documentation</a></li>
-                    <li><a href="#">Getting Started Guide</a></li>
-                    <li><a href="#">Best Practices</a></li>
-                    <li><a href="#">Community Forum</a></li>
-                    <li><a href="#">Tutorial Series</a></li>
-                </ul>
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <!-- Search Widget -->
+            <div class="sidebar-widget">
+                <h3>Search</h3>
+                <form class="search-form">
+                    <input type="text" class="search-input" placeholder="Search articles...">
+                    <button type="submit" class="search-button">🔍</button>
+                </form>
             </div>
 
-            <div class="sidebar-section">
-                <h3>Recent Blog Posts</h3>
+            <!-- Recent Posts Widget -->
+            <div class="sidebar-widget">
+                <h3>Recent Posts</h3>
                 <ul class="recent-posts">
-                    <li><a href="#">Django 5.0 New Features</a></li>
-                    <li><a href="#">Building REST APIs</a></li>
-                    <li><a href="#">Database Optimization</a></li>
-                    <li><a href="#">Deployment Strategies</a></li>
-                    <li><a href="#">Security Best Practices</a></li>
+                    <li><a href="#">Getting Started with Modern Web Development</a></li>
+                    <li><a href="#">Understanding CSS Grid and Flexbox</a></li>
+                    <li><a href="#">Building Responsive Websites with Bootstrap 5</a></li>
+                    <li><a href="#">JavaScript ES6+ Features You Should Know</a></li>
+                    <li><a href="#">The Future of Web Development in 2024</a></li>
                 </ul>
             </div>
 
-            <div class="sidebar-section">
-                <h3>Newsletter</h3>
-                <p>Stay updated with the latest Django news and tutorials.</p>
-                <input type="email" placeholder="Enter your email" style="width: 100%; padding: 0.5rem; margin: 0.5rem 0; border: 1px solid #ddd; border-radius: 5px;">
-                <button style="width: 100%; padding: 0.5rem; background: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer;">Subscribe</button>
+            <!-- Categories Widget -->
+            <div class="sidebar-widget">
+                <h3>Categories</h3>
+                <ul class="categories">
+                    <li><a href="#">Web Development <span class="category-count">12</span></a></li>
+                    <li><a href="#">JavaScript <span class="category-count">8</span></a></li>
+                    <li><a href="#">CSS <span class="category-count">6</span></a></li>
+                    <li><a href="#">React <span class="category-count">5</span></a></li>
+                    <li><a href="#">Tutorials <span class="category-count">15</span></a></li>
+                    <li><a href="#">Bootstrap <span class="category-count">4</span></a></li>
+                </ul>
+            </div>
+
+            <!-- About Widget -->
+            <div class="sidebar-widget">
+                <h3>About This Blog</h3>
+                <p>Welcome to our technology blog! We share the latest insights, tutorials, and best practices in web development, programming, and digital innovation. Stay updated with the rapidly evolving world of technology.</p>
             </div>
         </aside>
-
-        <!-- Footer Section -->
-        <footer>
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>About Django</h4>
-                    <p>Django is a free and open-source web framework written in Python, which follows the model-template-views architectural pattern.</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Resources</h4>
-                    <ul style="list-style: none; text-align: left;">
-                        <li><a href="#" style="color: #bdc3c7; text-decoration: none;">Documentation</a></li>
-                        <li><a href="#" style="color: #bdc3c7; text-decoration: none;">Tutorials</a></li>
-                        <li><a href="#" style="color: #bdc3c7; text-decoration: none;">Community</a></li>
-                        <li><a href="#" style="color: #bdc3c7; text-decoration: none;">Support</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Connect With Us</h4>
-                    <div class="social-links">
-                        <a href="#">📘</a>
-                        <a href="#">🐦</a>
-                        <a href="#">💼</a>
-                        <a href="#">📷</a>
-                    </div>
-                </div>
-            </div>
-            <div style="border-top: 1px solid #34495e; padding-top: 1rem; margin-top: 1rem;">
-                <p>&copy; 2025 Django Web Development. All rights reserved.</p>
-            </div>
-        </footer>
     </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <p>&copy; 2024 TechBlog. All rights reserved.</p>
+            <p>Built with HTML, CSS, and JavaScript</p>
+            <div class="social-links">
+                <a href="#" title="Twitter">🐦</a>
+                <a href="#" title="Facebook">📘</a>
+                <a href="#" title="LinkedIn">💼</a>
+                <a href="#" title="GitHub">🐙</a>
+                <a href="#" title="Email">📧</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle functionality
+        function toggleMobileMenu() {
+            const navMenu = document.getElementById('navMenu');
+            navMenu.classList.toggle('active');
+        }
+
+        // Close mobile menu when clicking on a link
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const navMenu = document.getElementById('navMenu');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    navMenu.classList.remove('active');
+                    
+                    // Remove active class from all links
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    // Add active class to clicked link
+                    this.classList.add('active');
+                });
+            });
+
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', function(event) {
+                const mobileToggle = document.querySelector('.mobile-menu-toggle');
+                if (!navMenu.contains(event.target) && !mobileToggle.contains(event.target)) {
+                    navMenu.classList.remove('active');
+                }
+            });
+
+            // Search functionality
+            const searchForm = document.querySelector('.search-form');
+            searchForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const searchInput = document.querySelector('.search-input');
+                const query = searchInput.value.trim();
+                
+                if (query) {
+                    alert(`Searching for: "${query}"\nThis is a demo - implement your search functionality here.`);
+                    searchInput.value = '';
+                }
+            });
+
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Add loading animation to new posts
+            function addNewPost(title, content, author, date, category) {
+                const blogPosts = document.querySelector('.blog-posts');
+                const newPost = document.createElement('article');
+                newPost.className = 'blog-post';
+                newPost.innerHTML = `
+                    <h2><a href="#" class="post-title">${title}</a></h2>
+                    <div class="post-meta">
+                        <span>📅 ${date}</span>
+                        <span>👤 ${author}</span>
+                        <span>🏷️ ${category}</span>
+                    </div>
+                    <p class="post-excerpt">${content}</p>
+                    <a href="#" class="read-more">Read More →</a>
+                `;
+                blogPosts.insertBefore(newPost, blogPosts.firstChild);
+            }
+
+            // Example of how to add a new post dynamically
+            // addNewPost(
+            //     "New Dynamic Post",
+            //     "This post was added dynamically using JavaScript!",
+            //     "Admin",
+            //     "March 20, 2024",
+            //     "JavaScript"
+            // );
+        });
+
+        // Intersection Observer for animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all blog posts and sidebar widgets for scroll animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const animatedElements = document.querySelectorAll('.blog-post, .sidebar-widget');
+            animatedElements.forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+                observer.observe(el);
+            });
+        });
+    </script>
 </body>
 </html>
