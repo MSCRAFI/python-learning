@@ -13,7 +13,7 @@ def post_create(request):
             post = form.save()
             return redirect('post_list')
     else:
-        form = PostForm
+        form = PostForm # Empty form for GET request
 
     return render(request, 'blog/post_form.html', {'form': form})
 
@@ -36,9 +36,9 @@ def post_update(request, pk):
         form = PostForm(request.POST, instance=post)
         if form.is_valid():
             form.save()
-            return redirect("post_detail", pk=post.pk)
+            return redirect("post_detail", pk=post.pk) # Redirect to detail view after update
     else:
-        form = PostForm(instance=post)
+        form = PostForm(instance=post) # Empty form for GET request
     return render(request, "blog/post_form.html", {"form": form})
 
 # DELETE
